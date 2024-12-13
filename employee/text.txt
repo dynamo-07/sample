@@ -1,0 +1,75 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee</title>
+    <link rel="stylesheet" href="{% static 'index.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>Employee</h1>
+        <form action="" method="post">
+            {% csrf_token %}
+            <div class="input-box-id">
+                <input type="text" id="id" name="id" placeholder="Employee Id">
+            </div>
+            <div class="input-box-name">
+                <input type="text" id="name" name="name" placeholder="Employee Name">
+            </div>
+            <div class="input-box-Position">
+                <input type="text" id="Position" name="Position" placeholder="Employee Position">
+            </div>
+            <div class="input-box-email">
+                <input type="text" id="email" name="email" placeholder="Employee email">
+            </div>
+            <div class="submit">
+                <button type="submit">submit</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
+from django.contrib import admin
+from .models import *
+# Register your models here.
+admin.site.register(employee)
+from django.forms import ModelForm
+from .models import *
+from django import form
+class employeeform(ModelForm):
+    class Meta:
+         model=employee
+         fields ='__all__'
+from django.db import models
+from django.db import *
+# Create your models here.
+class employee(models.model):
+    id =models.CharField(max_length=100)
+    name =models.CharField(max_length=100)
+    Position =models.CharField(max_length=100)
+    email =models.CharField(max_length=100)
+
+def __str__(self):
+    return self.idfrom django.db import models
+from django.db import *
+# Create your models here.
+class employee(models.model):
+    id =models.CharField(max_length=100)
+    name =models.CharField(max_length=100)
+    Position =models.CharField(max_length=100)
+    email =models.CharField(max_length=100)
+
+def __str__(self):
+    return self.id
+    from django.urls import path
+from .views import index
+
+urlpatterns = [
+    path('', index ,name='index'),
+]
+from django.shortcuts import render
+# Create your views here.
+def index(request):
+    return render(request,'index.html')

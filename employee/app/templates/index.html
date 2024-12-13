@@ -1,0 +1,33 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee</title>
+    <link rel="stylesheet" href="{% static 'index.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>Employee</h1>
+        <form action="" method="post">
+            {% csrf_token %}
+            <div class="input-box-id">
+                <input type="text" id="employee_id" name="employee_id" placeholder="Employee Id" value=""> 
+            </div>
+            <div class="input-box-name">
+                <input type="text" id="name" name="name" placeholder="Employee Name" value="">
+            </div>
+            <div class="input-box-Position">
+                <input type="text" id="Position" name="Position" placeholder="Employee Position" value="">
+            </div>
+            <div class="input-box-email">
+                <input type="text" id="email" name="email" placeholder="Employee email" value="">
+            </div>
+            <div class="submit">
+                <button type="submit">submit</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

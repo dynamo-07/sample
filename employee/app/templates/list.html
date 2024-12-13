@@ -1,0 +1,119 @@
+
+
+<div class="content-wrapper">
+    <div class="container-fluid">
+        <div class="content-header">
+            <section class="content">
+                <div class="col-lg-12">
+                    <div class="card card-outline card-primary">
+                        <div class="card-header">
+                            <div class="card-tools">
+                                <a
+                                    class="btn btn-block btn-sm btn-default btn-flat border-primary"
+                                    href="{% url 'manager_add' %}">
+                                    <i class="fa fa-plus"></i> Add New
+                                </a>
+                            </div>
+                            <h3 class="text-primary">
+                                <b>MANAGER LIST</b>
+                            </h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-hover table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th
+                                                class="text-center"><center>MANAGER NAME</center></th>
+                                            <th style="width: 11%"><center>PHONE 
+                                                 NUMBER</center></th>
+                                            <th><center>ADDRESS
+                                                    </center></th>
+                                            <th>MAIL ID</th>
+                                            <th><center>Action</center></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for i in list %}
+                                      
+                                            <!-- <td class="text-center"><center>{{i.id }}</center></td> -->
+                                            <td><center>{{ i.manager_name }}</center></td>
+                                            <td><center>{{ i.phone_no }}</center></td>
+                                            <td><center>{{ i.address }}</center></td>
+                                            <td><center>{{ i.mail_id }}</center></td>
+
+                                            <td class="text-center">
+                                                <div class="btn-group">
+
+                                                    <a href=""
+                                                        class="btn btn-warning btn-flat">
+                                                        <i
+                                                            class="fas fa-eye"></i>
+                                                    </a>
+                                                    <a href=""
+                                                        class="btn btn-primary btn-flat">
+                                                        <i class="fas fa-edit"></i>
+                                                    </a>
+                                                    <button
+                                                        class="btn btn-danger btn-flat"
+                                                        onclick="deleteGC('{{ i.id }}')">
+                                                        <i class="fas fa-trash"></i>
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+
+<style>
+	table td{
+		vertical-align: middle !important;
+	}
+</style>
+
+<script>
+	function deleteGC(gcId) {
+		if (confirm('Are you sure you want to delete this item?')) {
+			fetch(`/delete-gc/${gcId}/`, {
+				method: 'DELETE',
+				headers: {
+					'X-CSRFToken': getCookie('csrftoken'), 
+				},
+			})
+			.then(response => response.json())
+			.then(data => {
+				if (data.success) {
+					document.getElementById(`gc-${gcId}`).remove();  
+				} else {
+					alert('Failed to delete the item.');
+				}
+			})
+			.catch(error => console.error('Error:', error));
+		}
+	}
+	
+	
+	function getCookie(name) {
+		let cookieValue = null;
+		if (document.cookie && document.cookie !== '') {
+			const cookies = document.cookie.split(';');
+			for (let i = 0; i < cookies.length; i++) {
+				const cookie = cookies[i].trim();
+				if (cookie.substring(0, name.length + 1) === (name + '=')) {
+					cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+					break;
+				}
+			}
+		}
+		return cookieValue;
+	}
+	</script>
